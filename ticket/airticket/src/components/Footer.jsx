@@ -5,25 +5,45 @@ const Footer = () => {
     <footer style={{ backgroundColor: '#F55F55', color: 'white', textAlign: 'center', padding: '20px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <div>
-          <h4>LINKS</h4>
-          <p>About Us</p>
-          <p>Booking</p>
+          <h6>LINKS</h6>
+          <a href="/about-us" style={{ color: 'white', textDecoration: 'none' }}>
+            <p>About Us</p>
+          </a>
+          <a href="/booking" style={{ color: 'white', textDecoration: 'none' }}>
+            <p>Booking</p>
+          </a>
         </div>
         <div>
-          <h4>HELP</h4>
-          <p>Contact Us</p>
-          <p>FAQ</p>
-          <p>Help</p>
-          <p>Support</p>
+          <h6>HELP</h6>
+          <a href="/contact-us" style={{ color: 'white', textDecoration: 'none' }}>
+            <p>Contact Us</p>
+          </a>
+          <a href="/faq" style={{ color: 'white', textDecoration: 'none' }}>
+            <p>FAQ</p>
+          </a>
+          <a href="/help" style={{ color: 'white', textDecoration: 'none' }}>
+            <p>Help</p>
+          </a>
+          <a href="/support" style={{ color: 'white', textDecoration: 'none' }}>
+            <p>Support</p>
+          </a>
         </div>
         <div>
-          <h4>POLICY & PRIVACY</h4>
-          <p>Our Policy</p>
-          <p>Terms & Conditions</p>
+          <h6>POLICY & PRIVACY</h6>
+          <a href="/our-policy" style={{ color: 'white', textDecoration: 'none' }}>
+            <p>Our Policy</p>
+          </a>
+          <a href="/terms-and-conditions" style={{ color: 'white', textDecoration: 'none' }}>
+            <p>Terms & Conditions</p>
+          </a>
         </div>
         <div>
-          <h4>PAYMENT PARTNERS</h4>
-          <p>IME Pay</p>
+          <h6>PAYMENT PARTNERS</h6>
+          <a href="/ime-pay" style={{ color: 'white', textDecoration: 'none' }}>
+          <img src="src/assets/images/imepaylogo.png" alt="imepay" style={{ width: '100px', borderRadius: '0px' }} />
+          
+            <p></p>
+          </a>
         </div>
       </div>
     </footer>

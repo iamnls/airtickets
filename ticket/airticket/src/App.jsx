@@ -5,19 +5,27 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+// import ForgotPassword from "./pages/ForgotPassword";
+
+
+
 
 const App = () => {
   return (
     <Router>
-      <Navbar />
+      <Navbar />     
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />       
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        {/* <Route path="/forgot-password" element={<ForgotPassword />} /> */}
+        
       </Routes>
       <Footer />
     </Router>
   );
 };
+
+
 
 export default App;
