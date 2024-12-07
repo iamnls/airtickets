@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Home from "./Home";
-import ForgotPasswordForm from "./ForgotPasswordForm";
+import Home from "./pages/Home" // Import Home component to display as background
+import "./ForgotPassword.css";  // Import the CSS file for styling
 
 const ForgotPasswordForm = () => {
   const formRef = useRef(null);
@@ -9,14 +9,14 @@ const ForgotPasswordForm = () => {
 
   const handleOutsideClick = (e) => {
     if (formRef.current && !formRef.current.contains(e.target)) {
-      navigate("/"); // Redirect to the home page
+      navigate("/"); // Redirect to home page if clicked outside the form
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add forgot password logic here
-    alert("Password reset instructions sent to your email!");
+    // Add logic for password reset here
+    alert("Password reset link has been sent to your email!");
   };
 
   return (
@@ -26,20 +26,21 @@ const ForgotPasswordForm = () => {
       <div className="overlay" onClick={handleOutsideClick}>
         <div className="forgot-password-form" ref={formRef}>
           <h2>Forgot Password</h2>
-          <p>Enter your email to reset your password</p>
           <form onSubmit={handleSubmit}>
             <input
               type="email"
-              placeholder="Email Address"
+              placeholder="Enter your email"
               required
               className="form-input"
             />
             <button type="submit" className="submit-button">
-              Send Reset Link
+              Reset Password
             </button>
           </form>
           <div className="form-links">
-            <a href="/login">Back to Login</a>
+            <p>
+              Remember your password? <a href="/login">Login</a>
+            </p>
           </div>
         </div>
       </div>

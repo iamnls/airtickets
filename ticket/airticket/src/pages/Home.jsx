@@ -1,140 +1,372 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Home.css'; // Import the external CSS file
 
 const Home = () => {
+  const [tripType, setTripType] = useState('One Way');
+  const [departureCity, setDepartureCity] = useState('');
+  const [arrivalCity, setArrivalCity] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [returnDate, setReturnDate] = useState('');
+  const [multiCities, setMultiCities] = useState([{ departureCity: '', arrivalCity: '', departureDate: '', returnDate: '' }]);
+  const [adults, setAdults] = useState(1); // Number of adults
+  const [children, setChildren] = useState(0); // Number of children
+  const [travelClass, setTravelClass] = useState('Economy'); // Travel class (Economy, Premium Economy, Business, First Class)
+
+  const cities = ['Kathmandu', 'Pokhara', 'Bhairawa', 'Bangkok', 'Dubai', 'Singapore']; // Example list of cities
+  const travelers = [1, 2, 3, 4, 5]; // Options for travelers (1, 2, 3, 4, 5)
+  const travelClasses = ['Economy', 'Premium Economy', 'Business', 'First Class']; // Travel classes
+
+  // Handle button clicks for trip types
+  const handleButtonClick = (type) => {
+    setTripType(type);
+  };
+
+  // Style for active and inactive buttons
+  const getButtonStyle = (type) => {
+    return tripType === type
+      ? { backgroundColor: '#F55F55', color: '#fff', border: 'none' } // active button
+      : { backgroundColor: '#fff', color: '#F55F55', border: '1px solid #F55F55' }; // inactive button
+  };
+
+  // Handle the change for multi-city inputs (departure city, arrival city, departure date, and return date)
+  const handleMultiCityChange = (index, field, value) => {
+    const updatedCities = multiCities.map((city, i) =>
+      i === index ? { ...city, [field]: value } : city
+    );
+    setMultiCities(updatedCities);
+  };
+
+  // Add new leg (departure, arrival city, dates) for multi-city trip
+  const addMultiCity = () => {
+    setMultiCities([...multiCities, { departureCity: '', arrivalCity: '', departureDate: '', returnDate: '' }]);
+  };
+
+  // Remove a leg from the multi-city trip
+  const removeMultiCity = (index) => {
+    const updatedCities = multiCities.filter((_, i) => i !== index);
+    setMultiCities(updatedCities);
+  };
+
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif' }}>
+    <div className="home-container">
       {/* Header Section */}
-      <header
-        style={{
-          backgroundColor: '#F55F55',
-          color: '#fff',
-          padding: '20px 40px',
-          display: 'flex',
-          justifyContent: 'flex-end', // Align items to the right
-          alignItems: 'center',
-        }}
-      >
+      <header className="header">
+        {/* Additional content like logo can go here */}
       </header>
 
-      {/* Hero Section */}
-      <div
-        style={{
-          backgroundColor: '#F55F55',
-          color: '#fff',
-          textAlign: 'center',
-          padding: '40px 20px',
-          position: 'relative',
-        }}
-      >
-        <h2 style={{ fontSize: '36px', margin: '10px 0' }}>Book Your Flight</h2>
-        <img
-          src="src/assets/images/airplane.png"
-          alt="Airplane"
-          style={{ width: '1000px', marginTop: '20px' }}
-        />
+      {/* Hero Section with background image */}
+      <div className="hero-section">
+        <h2 className="hero-title">Book Your Flight</h2>
+        {/* Conditionally hide the airplane icon */}
+        {tripType !== '' && (
+          <img
+            src="src/assets/images/airplane.png"
+            alt="Airplane"
+            className="airplane-icon"
+          />
+        )}
       </div>
 
-      {/* Search Section */}
-      <div
-        style={{
-          backgroundColor: '#fff',
-          padding: '20px 40px',
-          marginTop: '-40px',
-          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-          borderRadius: '10px',
-          maxWidth: '800px',
-          margin: 'auto',
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '20px' }}>
-          <button style={{ padding: '10px 20px', border: 'none', backgroundColor: '#F55F55', color: '#fff', borderRadius: '5px' }}>One Way</button>
-          <button style={{ padding: '10px 20px', border: '1px solid #F55F55', backgroundColor: '#fff', color: '#F55F55', borderRadius: '5px' }}>Round Trip</button>
-          <button style={{ padding: '10px 20px', border: '1px solid #F55F55', backgroundColor: '#fff', color: '#F55F55', borderRadius: '5px' }}>MultiCity</button>
+      {/* Centered Search Section */}
+      <div className="search-container">
+        <div className="search-section">
+          {/* Buttons for trip types */}
+          <div className="button-group">
+            <button
+              style={getButtonStyle('One Way')}
+              onClick={() => handleButtonClick('One Way')}
+            >
+              One Way
+            </button>
+            <button
+              style={getButtonStyle('Round Trip')}
+              onClick={() => handleButtonClick('Round Trip')}
+            >
+              Round Trip
+            </button>
+            <button
+              style={getButtonStyle('Multi City')}
+              onClick={() => handleButtonClick('Multi City')}
+            >
+              Multi City
+            </button>
+          </div>
+
+          {/* Form */}
+          <form>
+            {/* Conditionally render inputs based on trip type */}
+            {tripType === 'One Way' && (
+              <div className="input-group">
+                {/* Departure City Dropdown */}
+                <select
+                  value={departureCity}
+                  onChange={(e) => setDepartureCity(e.target.value)}
+                  className="input-field"
+                >
+                  <option value="">Select Departure City</option>
+                  {cities.map((city, index) => (
+                    <option key={index} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+
+                {/* Arrival City Dropdown */}
+                <select
+                  value={arrivalCity}
+                  onChange={(e) => setArrivalCity(e.target.value)}
+                  className="input-field"
+                >
+                  <option value="">Select Arrival City</option>
+                  {cities.map((city, index) => (
+                    <option key={index} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+
+                {/* Departure Date */}
+                <input
+                  type="date"
+                  value={departureDate}
+                  onChange={(e) => setDepartureDate(e.target.value)}
+                  className="input-field"
+                />
+              </div>
+            )}
+
+            {tripType === 'Round Trip' && (
+              <div className="input-group">
+                {/* Departure City Dropdown */}
+                <select
+                  value={departureCity}
+                  onChange={(e) => setDepartureCity(e.target.value)}
+                  className="input-field"
+                >
+                  <option value="">Select Departure City</option>
+                  {cities.map((city, index) => (
+                    <option key={index} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+
+                {/* Arrival City Dropdown */}
+                <select
+                  value={arrivalCity}
+                  onChange={(e) => setArrivalCity(e.target.value)}
+                  className="input-field"
+                >
+                  <option value="">Select Arrival City</option>
+                  {cities.map((city, index) => (
+                    <option key={index} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+
+                {/* Departure Date */}
+                <input
+                  type="date"
+                  value={departureDate}
+                  onChange={(e) => setDepartureDate(e.target.value)}
+                  className="input-field"
+                />
+
+                {/* Return Date */}
+                <input
+                  type="date"
+                  value={returnDate}
+                  onChange={(e) => setReturnDate(e.target.value)}
+                  className="input-field"
+                />
+              </div>
+            )}
+
+            {tripType === 'Multi City' && (
+              <div className="multi-city-section">
+                {multiCities.map((city, index) => (
+                  <div key={index} className="multi-city-leg">
+                    <div className="input-group">
+                      {/* Departure City Dropdown */}
+                      <select
+                        value={city.departureCity}
+                        onChange={(e) => handleMultiCityChange(index, 'departureCity', e.target.value)}
+                        className="input-field"
+                      >
+                        <option value="">Select Departure City</option>
+                        {cities.map((city, index) => (
+                          <option key={index} value={city}>
+                            {city}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Arrival City Dropdown */}
+                      <select
+                        value={city.arrivalCity}
+                        onChange={(e) => handleMultiCityChange(index, 'arrivalCity', e.target.value)}
+                        className="input-field"
+                      >
+                        <option value="">Select Arrival City</option>
+                        {cities.map((city, index) => (
+                          <option key={index} value={city}>
+                            {city}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Departure Date */}
+                      <input
+                        type="date"
+                        value={city.departureDate}
+                        onChange={(e) => handleMultiCityChange(index, 'departureDate', e.target.value)}
+                        className="input-field"
+                      />
+
+                      {/* Return Date */}
+                      <input
+                        type="date"
+                        value={city.returnDate}
+                        onChange={(e) => handleMultiCityChange(index, 'returnDate', e.target.value)}
+                        className="input-field"
+                      />
+
+                      
+                      
+                    </div>
+                    <div className="input-group">
+                      {/* Departure City Dropdown */}
+                      <select
+                        value={city.departureCity}
+                        onChange={(e) => handleMultiCityChange(index, 'departureCity', e.target.value)}
+                        className="input-field"
+                      >
+                        <option value="">Select Departure City</option>
+                        {cities.map((city, index) => (
+                          <option key={index} value={city}>
+                            {city}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Arrival City Dropdown */}
+                      <select
+                        value={city.arrivalCity}
+                        onChange={(e) => handleMultiCityChange(index, 'arrivalCity', e.target.value)}
+                        className="input-field"
+                      >
+                        <option value="">Select Arrival City</option>
+                        {cities.map((city, index) => (
+                          <option key={index} value={city}>
+                            {city}
+                          </option>
+                        ))}
+                      </select>
+
+                      {/* Departure Date */}
+                      <input
+                        type="date"
+                        value={city.departureDate}
+                        onChange={(e) => handleMultiCityChange(index, 'departureDate', e.target.value)}
+                        className="input-field"
+                      />
+
+                      {/* Return Date */}
+                      <input
+                        type="date"
+                        value={city.returnDate}
+                        onChange={(e) => handleMultiCityChange(index, 'returnDate', e.target.value)}
+                        className="input-field"
+                      />
+
+                      
+                      
+                    </div>
+
+                 
+                  </div>
+                ))}
+              
+              </div>
+            )}
+
+            {/* Travelers Section */}
+            <div className="travelers-section">
+              <label>Adults</label>
+              <select
+                value={children}
+                onChange={(e) => setAdults(Number(e.target.value))}
+                className="input-field"
+              >
+                <option value="">Choose the option</option>
+                {travelers.map((count) => (
+                  <option key={count} value={count}>
+                    {count}
+                  </option>
+                ))}
+              </select>
+
+              <label>Children</label>
+              <select
+                value={children}
+                onChange={(e) => setChildren(Number(e.target.value))}
+                className="input-field"
+              >
+                <option value="">Choose the option</option>
+                {travelers.map((count) => (
+                  <option key={count} value={count}>
+                    {count}
+                  </option>
+                ))}
+              </select>
+
+              <label>Travel</label>
+              <select
+                value={travelClass}
+                onChange={(e) => setTravelClass(Name(e.target.value))}
+                className="input-field"
+              >
+                <option value="">Choose the option</option>
+                {travelClasses.map((classType) => (
+                  <option key={classType} value={classType}>
+                    {classType}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Search Button */}
+            <button type="submit" className="search-button">
+              Search Flight
+            </button>
+          </form>
         </div>
-        <form>
-          <input
-            type="text"
-            placeholder="Departure City"
-            style={{
-              padding: '10px',
-              marginRight: '10px',
-              width: 'calc(25% - 20px)',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Arrival City"
-            style={{
-              padding: '10px',
-              marginRight: '10px',
-              width: 'calc(25% - 20px)',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-            }}
-          />
-          <input
-            type="date"
-            placeholder="Departure Date"
-            style={{
-              padding: '10px',
-              marginRight: '10px',
-              width: 'calc(25% - 20px)',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-            }}
-          />
-          <input
-            type="date"
-            placeholder="Return Date"
-            style={{
-              padding: '10px',
-              width: 'calc(25% - 20px)',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-            }}
-          />
-          <button
-            type="submit"
-            style={{
-              marginTop: '20px',
-              width: '100%',
-              padding: '10px',
-              backgroundColor: '#F55F55',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '5px',
-              fontSize: '16px',
-            }}
-          >
-            Search Flight
-          </button>
-        </form>
       </div>
 
       {/* Destination Section */}
-      <div style={{ padding: '40px 20px', backgroundColor: '#F5F5F5' }}>
-        <h3 style={{ textAlign: 'center', marginBottom: '20px', color: '#333' }}>Popular Destinations</h3>
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <div style={{ textAlign: 'center' }}>
-            <img src="src/assets/images/Pokhara.jpg" alt="PKH" style={{ width: '300px', borderRadius: '0px' }} />
+      <div className="destination-section">
+        <h3 className="destination-title">Popular Destinations</h3>
+        <div className="destination-images">
+          <div className="destination-item">
+            <img src="src/assets/images/Pokhara.jpg" alt="PKH" className="destination-img" />
             <p>PKH</p>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <img src="src/assets/images/Kathmandu.jpg" alt="KTM" style={{ width: '300px', borderRadius: '0px' }} />
+          <div className="destination-item">
+            <img src="src/assets/images/Kathmandu.jpg" alt="KTM" className="destination-img" />
             <p>KTM</p>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <img src="src/assets/images/Bhairawa.jpg" alt="BWA" style={{ width: '300px', borderRadius: '0px' }} />
+          <div className="destination-item">
+            <img src="src/assets/images/Bhairawa.jpg" alt="BWA" className="destination-img" />
             <p>BWA</p>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <img src="src/assets/images/Bangkok.jpg" alt="BKK" style={{ width: '300px', borderRadius: '0px' }} />
+          <div className="destination-item">
+            <img src="src/assets/images/Bangkok.jpg" alt="BKK" className="destination-img" />
             <p>BKK</p>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   );
 };

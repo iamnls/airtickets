@@ -1,11 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 import Home from "./Home";
 import "./LoginForm.css";
 
 const LoginForm = () => {
   const formRef = useRef(null);
   const navigate = useNavigate();
+  const [captchaVerified, setCaptchaVerified] = useState(false);
 
   const handleOutsideClick = (e) => {
     if (formRef.current && !formRef.current.contains(e.target)) {
@@ -15,8 +17,16 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add login logic here
-    alert("Logged in successfully!");
+    if (captchaVerified) {
+      alert("Logged in successfully!");
+      // Add login logic here
+    } else {
+      alert("Please complete the reCAPTCHA verification.");
+    }
+  };
+
+  const handleCaptchaChange = (value) => {
+    setCaptchaVerified(!!value); // Check if the value is not null or empty
   };
 
   return (
@@ -45,7 +55,20 @@ const LoginForm = () => {
                 Remember Me
               </label>
             </div>
-            <button type="submit" className="submit-button">
+
+            {/* Google reCAPTCHA */}
+            <div className="recaptcha-container">
+              <ReCAPTCHA
+                sitekey="YOUR_RECAPTCHA_SITE_KEY" // Replace with your site key from Google reCAPTCHA
+                onChange={handleCaptchaChange}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="submit-button"
+              disabled={!captchaVerified} // Disable button until reCAPTCHA is verified
+            >
               Login
             </button>
           </form>

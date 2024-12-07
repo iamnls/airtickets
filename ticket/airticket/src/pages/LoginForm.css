@@ -45,7 +45,12 @@
     border-radius: 4px;
   }
   
-  .captcha,
+  .recaptcha-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+  }
+  
   .remember-me {
     margin: 1rem 0;
     display: flex;
