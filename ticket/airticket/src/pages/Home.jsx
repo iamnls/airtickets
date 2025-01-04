@@ -296,7 +296,7 @@ const Home = () => {
             <div className="travelers-section">
               <label>Adults</label>
               <select
-                value={children}
+                value={adults}
                 onChange={(e) => setAdults(Number(e.target.value))}
                 className="input-field"
               >
@@ -347,26 +347,42 @@ const Home = () => {
 
       {/* Destination Section */}
       <div className="destination-section">
-        <h3 className="destination-title">Popular Destinations</h3>
-        <div className="destination-images">
-          <div className="destination-item">
-            <img src="src/assets/images/Pokhara.jpg" alt="PKH" className="destination-img" />
-            <p>PKH</p>
-          </div>
-          <div className="destination-item">
-            <img src="src/assets/images/Kathmandu.jpg" alt="KTM" className="destination-img" />
-            <p>KTM</p>
-          </div>
-          <div className="destination-item">
-            <img src="src/assets/images/Bhairawa.jpg" alt="BWA" className="destination-img" />
-            <p>BWA</p>
-          </div>
-          <div className="destination-item">
-            <img src="src/assets/images/Bangkok.jpg" alt="BKK" className="destination-img" />
-            <p>BKK</p>
-          </div>
-        </div>
-      </div>
+  <h3 className="destination-title">Popular Destinations</h3>
+  <div className="destination-images">
+    <div className="destination-item">
+      <img src="src/assets/images/Pokhara.jpg" alt="PKH" className="destination-img" />
+      <p>PKH</p>
+    </div>
+    <div className="destination-item">
+      <img src="src/assets/images/Kathmandu.jpg" alt="KTM" className="destination-img" />
+      <p>KTM</p>
+    </div>
+    <div className="destination-item">
+      <img src="src/assets/images/Bhairawa.jpg" alt="BWA" className="destination-img" />
+      <p>BWA</p>
+    </div>
+    <div className="destination-item">
+      <img src="src/assets/images/Bangkok.jpg" alt="BKK" className="destination-img" />
+      <p>BKK</p>
+    </div>
+    <div className="destination-item">
+      <img src="src/assets/images/Dubai.jpg" alt="DXB" className="destination-img" />
+      <p>DXB</p>
+    </div>
+    <div className="destination-item">
+      <img src="src/assets/images/Singapore.jpg" alt="SIN" className="destination-img" />
+      <p>SIN</p>
+    </div>
+    <div className="destination-item">
+      <img src="src/assets/images/London.jpg" alt="LON" className="destination-img" />
+      <p>LON</p>
+    </div>
+    <div className="destination-item">
+      <img src="src/assets/images/NewYork.jpg" alt="NYC" className="destination-img" />
+      <p>NYC</p>
+    </div>
+  </div>
+</div>
     </div>
   );
 };

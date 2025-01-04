@@ -22,7 +22,7 @@ const Footer = () => {
           <a href="/faq" style={{ color: 'white', textDecoration: 'none' }}>
             <p>FAQ</p>
           </a>
-          <a href="/Help" style={{ color: 'white', textDecoration: 'none' }}>
+          <a href="/help" style={{ color: 'white', textDecoration: 'none' }}>
             <p>Help</p>
           </a>
           <a href="/support" style={{ color: 'white', textDecoration: 'none' }}>
@@ -31,11 +31,11 @@ const Footer = () => {
         </div>
         <div>
           <h6>POLICY & PRIVACY</h6>
-          <a href="/our-policy" style={{ color: 'white', textDecoration: 'none' }}>
+          <a href="/policy" style={{ color: 'white', textDecoration: 'none' }}>
             <p>Our Policy</p>
           </a>
-          <a href="/terms-and-conditions" style={{ color: 'white', textDecoration: 'none' }}>
-            <p>Terms & Conditions</p>
+          <a href="/terms" style={{ color: 'white', textDecoration: 'none' }}>
+            <p>Terms</p>
           </a>
         </div>
         <div>

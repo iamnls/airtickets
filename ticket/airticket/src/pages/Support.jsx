@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import './Help.css'; // Add custom CSS for styling
+import './Support.css'; // Add custom CSS for styling
 
-const Help = () => {
+const Support= () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     issue: '',
-    description: '',
+    details: '',
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -21,26 +21,21 @@ const Help = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate form submission
-    console.log('Code Help Request Submitted:', formData);
+    console.log('Form Submitted:', formData);
     setSubmitted(true);
-    setFormData({ name: '', email: '', issue: '', description: '' });
+    setFormData({ name: '', email: '', issue: '', details: '' });
   };
 
   return (
-    <div className="code-help-container">
-      <h1>Help</h1>
-      <p>If you need help , please fill out the form below, and we will assist you as soon as possible!</p>
+    <div className="support-form-container">
+      <h1>Support Form</h1>
+      <p>Let us know your issue, and we’ll get back to you as soon as possible.</p>
 
-      {submitted && (
-        <p className="success-message">
-          Thank you for reaching out! We will review your request and get back to you shortly.
-        </p>
-      )}
+      {submitted && <p className="success-message">Thank you for reaching out! We’ll assist you shortly.</p>}
 
-      <form onSubmit={handleSubmit} className="code-help-form">
+      <form className="support-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="name">Your Name</label>
+          <label htmlFor="name">Name</label>
           <input
             type="text"
             id="name"
@@ -53,7 +48,7 @@ const Help = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Your Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
@@ -66,27 +61,26 @@ const Help = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="issue">Issue Title</label>
+          <label htmlFor="issue">Issue</label>
           <input
             type="text"
             id="issue"
             name="issue"
             value={formData.issue}
             onChange={handleChange}
-            placeholder="Enter the issue title"
+            placeholder="Describe your issue"
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="details">Details</label>
           <textarea
-            id="description"
-            name="description"
-            value={formData.description}
+            id="details"
+            name="details"
+            value={formData.details}
             onChange={handleChange}
-            placeholder="Describe your issue in detail"
-            rows="5"
+            placeholder="Provide more details about the issue"
             required
           ></textarea>
         </div>
@@ -97,4 +91,4 @@ const Help = () => {
   );
 };
 
-export default Help;
+export default Support;

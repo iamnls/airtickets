@@ -10,6 +10,10 @@ import About from './pages/About';
 import Booking from './pages/Booking';
 import ContactUs from './pages/ContactUs';
 import FAQ from './pages/Faq';
+import Policy from './pages/Policy';
+import Terms from './pages/Terms';
+import Support from './pages/Support';
+import Help from './pages/Help';
 
 
 
@@ -27,6 +31,12 @@ const App = () => {
         <Route path="/booking" element={<Booking/>}/>
         <Route path="/contactus" element={<ContactUs/>}/>
         <Route path="/faq" element={<FAQ/>}/>
+        <Route path="/policy" element={<Policy/>}/>
+        <Route path="/terms" element={<Terms/>}/>
+        <Route path="/support" element={<Support/>}/>
+        <Route path="/help" element={<Help/>}/>
+        
+
       
         {/* Add more routes here */}
         
